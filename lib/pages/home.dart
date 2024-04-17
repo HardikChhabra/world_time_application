@@ -13,7 +13,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     try {
-      data = ModalRoute.of(context)?.settings.arguments as Map;
+      data = data!.isNotEmpty ?data: ModalRoute.of(context)?.settings.arguments as Map;
       return Scaffold(
         body: SafeArea(
           child: Padding(
@@ -22,8 +22,15 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/location');
+                  onPressed: () async {
+                    dynamic result = await Navigator.pushNamed(context, '/location');
+                    setState(() {
+                      data = {
+                        'location': result['location'],
+                        'time': result['time'],
+                        'flag': result['flag'],
+                      };
+                    });
                   },
                   icon: const Icon(Icons.edit_location),
                 ),
@@ -106,7 +113,7 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-      );;
+      );
     }
 
   }

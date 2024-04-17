@@ -44,7 +44,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       flag: locations[index].flag,
                       url: locations[index].url);
                   await instance.getTime();
-                  Navigator.pushNamed(context, '/home', arguments: {
+                  Navigator.pop(context, {
                     'location': instance.location,
                     'flag': instance.flag,
                     'time': instance.time,
